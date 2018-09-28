@@ -3,11 +3,11 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 
-@app.route('/hello/')
+@app.route('/')
 def hello_world():
     return render_template('index.html');
 
-@app.route('/value', methods=['POST'])
+@app.route('/hello', methods=['POST'])
 def cal_value():
     if request.method == 'POST':
         a = request.form.get('a', 0, type=int)
