@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: python-demo
+  labels:
+    version: v1.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-demo
+  template:
+    metadata:
+      labels:
+        app: python-demo
+    spec:
+      containers:
+      - name: python-demo
+        image: registry.cn-beijing.aliyuncs.com/coostack/python_demo_test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-demo
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    targetPort: 8000
+    name: python-demo
+  selector:
+    app: python-demo
+  type: LoadBalancer
